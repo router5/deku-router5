@@ -26,7 +26,7 @@ function linkFactory(router) {
         routeOptions:    {}
     }
 
-    let getInitialState = (props) {
+    let initialState = (props) {
         return {
             active: router.isActive(props.routeName, props.routeParams, props.activeStrict)
         };
@@ -81,5 +81,5 @@ function linkFactory(router) {
         return element('a', {href, className, onClick}, [props.label])
     }
 
-    return {propTypes, defaultProps, shouldUpdate, afterMount, beforeUnmout, render}
+    return {propTypes, defaultProps, initialState, shouldUpdate, afterMount, beforeUnmout, render}
 }
