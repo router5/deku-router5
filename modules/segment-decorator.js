@@ -20,6 +20,8 @@ function segmentDecoratorFactory(router) {
         }
 
         componentDef.beforeUnmount = (component, el) {
+            if (componentDef.beforeUnmount) componentDef.beforeUnmount(component, el)
+
             if (listener) router.removeNodeListener(routeName, listeners[component.id])
             delete listeners[component.id]
 
