@@ -1,0 +1,34 @@
+{
+  "name": "router5-deku",
+  "version": "0.1.0-alpha.1",
+  "homepage": "http://router5.github.io",
+  "authors": [
+    "Thomas Roch <thomas.c.roch@gmail.com>"
+  ],
+  "description": "router5 helpers for Deku",
+  "main": "dist/browser/router5-deku.js",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "router",
+    "html5",
+    "history",
+    "tree",
+    "deku",
+    "functional"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "scripts",
+    "npm-debug.log",
+    "bower.json",
+    "README.md",
+    "package.json"
+  ]
+}
