@@ -4,9 +4,10 @@ import {element} from 'deku'
 // are not excluded
 export default linkFactory
 
-var listeners = {}
 
 function linkFactory(router) {
+    let listeners = {}
+
     let propTypes = {
         label:           {type: 'string', optional: false},
         button:          {type: 'boolean'},
