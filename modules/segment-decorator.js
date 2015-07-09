@@ -25,5 +25,7 @@ function segmentDecoratorFactory(router) {
 
             router.deregisterComponent(routeName, this)
         }
+
+        return componentDef
     }
 }
