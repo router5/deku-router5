@@ -5,47 +5,25 @@ import {element} from 'deku'
 export default linkFactory
 
 
-function linkFactory(router) {
-    let listeners = {}
-
+function linkFactory(router, useSource = true) {
     let propTypes = {
-        label:           {type: 'string', optional: false},
         button:          {type: 'boolean'},
         routeName:       {type: 'string', optional: false},
         routeParams:     {type: 'object'},
         routeOptions:    {type: 'object'},
-        activeClassName: {type: 'string'},
+        activeClass:     {type: 'string'},
         activeStrict:    {type: 'function'},
         onClick:         {type: 'function'}
     }
 
+    if (useSource) propTypes.currentRoute = {source: 'currentRoute'}
+
     let defaultProps = {
-        activeClassName: 'active',
-        button:          false,
-        activeStrict:    false,
-        routeParams:     {},
-        routeOptions:    {}
-    }
-
-    let initialState = (props) {
-        return {
-            active: router.isActive(props.routeName, props.routeParams, props.activeStrict)
-        };
-    }
-
-    // Is it overkill?
-    let shouldUpdate = (component, nextProps, nextState) => {
-        let {state, props} = component
-
-        return !router.areStatesEqual(
-            {name: nextProps.routeName,  params: nextProps.routeParams},
-            {name: props.routeName, params: props.routeParams}
-        ) || state.active !== nextState.active;
-    }
-
-    let render = (component) => {
-        let {props,state} = component
-
+        activeClass:  'active',
+        button:       false,
+        activeStrict: false,
+        routeParams:  {},
+        routeOptions: {}
     }
 
     let clickHandler =  (evt, component, updateState) => {
@@ -55,32 +33,20 @@ function linkFactory(router) {
         router.navigate(props.routeName, props.routeParams, props.routeOptions)
     }
 
-    let afterMount = (component, el, setState) => {
-        listeners[component.id] = () => {
-            let {props} = component.props
-            setState({active: router.isActive(props.routeName, props.routeParams)})
-        }
-
-        router.addListener(listeners[component.id])
-    }
-
-    let beforeUnmout = (component, el) => {
-        router.removeListener(listeners[component.id])
-        delete listeners[component.id]
-    }
-
     let render = (component, el) => {
-        let {props, state} = component
+        let {props} = component
+        let active = router.isActive(props.routeName, props.routeParams)
         let href =  router.buildUrl(props.routeName, props.routeParams)
-        let className = (props.className ? props.className.split(' ') : [])
-            .concat(state.active ? [props.activeClassName] : []).join(' ')
+        let className = (props.class ? props.class.split(' ') : [])
+            .concat(active ? [props.activeClass] : []).join(' ')
+
         let onClick = props.onClick || clickHandler
 
-        if (button) {
-            return element('button', {type: 'button', className, onClick}, [props.label])
+        if (props.button) {
+            return element('button', {type: 'button', 'class': className, onClick}, props.children)
         }
-        return element('a', {href, className, onClick}, [props.label])
+        return element('a', {href, 'class': className, onClick}, props.children)
     }
 
-    return {propTypes, defaultProps, initialState, shouldUpdate, afterMount, beforeUnmout, render}
+    return {propTypes, defaultProps, render}
 }
