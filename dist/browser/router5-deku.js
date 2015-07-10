@@ -26,9 +26,8 @@
 'use strict';
 
 function linkFactory(router) {
-    var useSource = arguments[1] === undefined ? true : arguments[1];
-
     var propTypes = {
+        currentRoute: { source: 'currentRoute' },
         button: { type: 'boolean' },
         routeName: { type: 'string', optional: false },
         routeParams: { type: 'object' },
@@ -37,8 +36,6 @@ function linkFactory(router) {
         activeStrict: { type: 'function' },
         onClick: { type: 'function' }
     };
-
-    if (useSource) propTypes.currentRoute = { source: 'currentRoute' };
 
     var defaultProps = {
         activeClass: 'active',

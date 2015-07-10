@@ -5,8 +5,9 @@ import {element} from 'deku'
 export default linkFactory
 
 
-function linkFactory(router, useSource = true) {
+function linkFactory(router) {
     let propTypes = {
+        currentRoute:    {source: 'currentRoute'},
         button:          {type: 'boolean'},
         routeName:       {type: 'string', optional: false},
         routeParams:     {type: 'object'},
@@ -15,8 +16,6 @@ function linkFactory(router, useSource = true) {
         activeStrict:    {type: 'function'},
         onClick:         {type: 'function'}
     }
-
-    if (useSource) propTypes.currentRoute = {source: 'currentRoute'}
 
     let defaultProps = {
         activeClass:  'active',

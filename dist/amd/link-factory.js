@@ -6,9 +6,8 @@ define(['exports', 'module', 'deku'], function (exports, module, _deku) {
     module.exports = linkFactory;
 
     function linkFactory(router) {
-        var useSource = arguments[1] === undefined ? true : arguments[1];
-
         var propTypes = {
+            currentRoute: { source: 'currentRoute' },
             button: { type: 'boolean' },
             routeName: { type: 'string', optional: false },
             routeParams: { type: 'object' },
@@ -17,8 +16,6 @@ define(['exports', 'module', 'deku'], function (exports, module, _deku) {
             activeStrict: { type: 'function' },
             onClick: { type: 'function' }
         };
-
-        if (useSource) propTypes.currentRoute = { source: 'currentRoute' };
 
         var defaultProps = {
             activeClass: 'active',
