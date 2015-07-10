@@ -5,7 +5,8 @@ var async       = require('async');
 // var mkdirp      = require('mkdirp');
 
 var fileNames    = [
-    // 'index.js',
+    'index.js',
+    'router-plugin.js',
     'link-factory.js',
     'segment-decorator-factory.js'
 ];
@@ -40,11 +41,13 @@ function buildBundle(done) {
         }
     }
 
-    var linkFactory   = path.join(__dirname, '../modules/link-factory.js');
+    var routePlugin       = path.join(__dirname, '../modules/router-plugin.js');
+    var linkFactory       = path.join(__dirname, '../modules/link-factory.js');
     var decoratorFactory  = path.join(__dirname, '../modules/segment-decorator-factory.js');
 
     async.parallel([
         fs.readFile.bind(fs, path.join(__dirname, '../LICENSE')),
+        transform(routePlugin),
         transform(linkFactory),
         transform(decoratorFactory)
     ], function (err, results) {
@@ -54,9 +57,10 @@ function buildBundle(done) {
         }).join('\n');
         license = '/**\n * @license\n' + license + '\n */';
 
-        var source =  (results[1].code + results[2].code).replace(/("|')use strict("|');\n/g, '');
+        var source =  (results[1].code + results[2].code + results[3].code).replace(/("|')use strict("|');\n/g, '');
 
         var globalVars = '\n' +
+            'window.routerPlugin = routerPlugin;\n' +
             'window.linkFactory = linkFactory;\n' +
             'window.segmentDecoratorFactory = segmentDecoratorFactory;\n';
 

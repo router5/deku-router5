@@ -25,6 +25,16 @@
 (function () {
 'use strict';
 
+var routerPlugin = function routerPlugin(router) {
+
+    return function (app) {
+        app.set('currentRoute', router.getState());
+
+        router.addListener(function (toState) {
+            app.set('currentRoute', toState);
+        });
+    };
+};
 function linkFactory(router) {
     var propTypes = {
         currentRoute: { source: 'currentRoute' },
@@ -121,6 +131,7 @@ function segmentDecoratorFactory(router, app) {
     };
 }
 
+window.routerPlugin = routerPlugin;
 window.linkFactory = linkFactory;
 window.segmentDecoratorFactory = segmentDecoratorFactory;
 
