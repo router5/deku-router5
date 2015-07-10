@@ -22,9 +22,8 @@ function segmentDecoratorFactory(router, app) {
             if (target.canDeactivate) {
                 components[component.id] = {
                     canDeactivate: (toState, fromState) => {
-                        // var context = {};
-                        let context = app.entities[component.id].context
-                        target.canDeactivate(context, toState, fromState)
+                        let entity = app.entities[component.id]
+                        return target.canDeactivate(entity.context, app.setState(entity), toState, fromState)
                     }
                 }
                 router.registerComponent(routeName, components[component.id])
@@ -40,7 +39,7 @@ function segmentDecoratorFactory(router, app) {
             }
 
             if (components[component.id]) {
-                router.deregisterComponent(routeName, registeredComponent)
+                router.deregisterComponent(routeName, components[component.id])
             }
         }
 
