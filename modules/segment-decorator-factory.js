@@ -13,9 +13,8 @@ function segmentDecoratorFactory(router, app) {
 
             if (listener) {
                 listeners[component.id] = function (toState, fromState) {
-                    let context = app.entities[component.id].context
-                    let setState = function () {}
-                    listener(context, setState, toState, fromState)
+                    let entity = app.entities[component.id]
+                    listener(entity.context, app.setState(entity), toState, fromState)
                 }
                 router.addNodeListener(routeName, listeners[component.id])
             }
