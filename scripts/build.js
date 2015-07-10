@@ -7,7 +7,7 @@ var async       = require('async');
 var fileNames    = [
     // 'index.js',
     'link-factory.js',
-    // 'segment-mixin-factory.js'
+    'segment-decorator-factory.js'
 ];
 
 function buildFactory(module, dest) {
@@ -41,12 +41,12 @@ function buildBundle(done) {
     }
 
     var linkFactory   = path.join(__dirname, '../modules/link-factory.js');
-    var mixinFactory  = path.join(__dirname, '../modules/segment-mixin-factory.js');
+    var decoratorFactory  = path.join(__dirname, '../modules/segment-decorator-factory.js');
 
     async.parallel([
         fs.readFile.bind(fs, path.join(__dirname, '../LICENSE')),
         transform(linkFactory),
-        // transform(mixinFactory)
+        transform(decoratorFactory)
     ], function (err, results) {
         // License
         var license = results[0].toString().trim().split('\n').map(function (line) {
@@ -54,12 +54,11 @@ function buildBundle(done) {
         }).join('\n');
         license = '/**\n * @license\n' + license + '\n */';
 
-        var source =  results[1].code.replace(/("|')use strict("|');\n/g, '');
-        // var source =  (results[1].code + results[2].code).replace(/("|')use strict("|');\n/g, '');
+        var source =  (results[1].code + results[2].code).replace(/("|')use strict("|');\n/g, '');
 
         var globalVars = '\n' +
-            'window.linkFactory = linkFactory;\n';// +
-            // 'window.segmentMixinFactory = segmentMixinFactory;\n';
+            'window.linkFactory = linkFactory;\n' +
+            'window.segmentDecoratorFactory = segmentDecoratorFactory;\n';
 
         var code = license + '\n(function () {\n\'use strict\';\n' + source + '\n' + globalVars + '\n}());\n';
 
