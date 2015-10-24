@@ -1,5 +1,6 @@
 const routerPlugin = router => app => {
-    app.set('currentRoute', router.getState());
+    app.set('router', router);
+    app.set('route', router.getState());
     router.addListener(toState => app.set('route', toState));
 };
 
