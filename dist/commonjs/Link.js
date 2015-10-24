@@ -4,7 +4,11 @@ Object.defineProperty(exports, '__esModule', {
     value: true
 });
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 var _virtualElement = require('virtual-element');
+
+var _virtualElement2 = _interopRequireDefault(_virtualElement);
 
 var propTypes = {
     router: { source: 'router' },
@@ -44,6 +48,7 @@ var render = function render(_ref) {
     var routeName = props.routeName;
     var routeParams = props.routeParams;
     var children = props.children;
+    var router = props.router;
 
     var active = router.isActive(routeName, routeParams);
     var href = router.buildUrl(routeName, routeParams);
@@ -53,10 +58,10 @@ var render = function render(_ref) {
     var onClick = props.onClick || clickHandler;
 
     if (button) {
-        return (0, _virtualElement.element)('button', { type: 'button', 'class': className, onClick: onClick }, children);
+        return (0, _virtualElement2['default'])('button', { type: 'button', 'class': className, onClick: onClick }, children);
     }
 
-    return (0, _virtualElement.element)('a', { href: href, 'class': className, onClick: onClick }, children);
+    return (0, _virtualElement2['default'])('a', { href: href, 'class': className, onClick: onClick }, children);
 };
 
 exports['default'] = { propTypes: propTypes, defaultProps: defaultProps, render: render };

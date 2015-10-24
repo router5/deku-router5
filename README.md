@@ -15,49 +15,49 @@ Demo here: [http://localhost:8080/docs/with-deku.html#/inbox](http://localhost:8
 - router5 >= __1.0.0__
 
 
-### RouterProvider HOC
+### routerPlugin
 
 It will add your router instance in context.
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { RouterProvider } from 'react-router5';
+import { tree, render } from 'deku';
+import element from 'virtual-element';
+import { routerPlugin } from 'deku-router5';
 import App from './App';
 import router from './router';
 
-ReactDOM.render(
-    <RouterProvider router={ router }><App /></RouterProvider>,
-    document.getElementById('app')
-);
+const myApp = tree()
+    .use(routerPlugin(router))
+    .mount(element(App));
+
+render(myApp, document.getElementById('app'));
 ```
 
 ### RouteNode HOC
 
-__routeNode(nodeName, registerComponent = false)__: high-order component to wrap a route node component.
-
-- Specify your component node name (`''` if root node)
-- If you set `registerComponent` to true, you cannot use functional stateless components as `routeNode` make uses of _refs_.
+__routeNode(nodeName)__: high-order component to wrap a route node component.
 
 __Note:__ your router needs to use `router5-listeners` plugin.
 
 ```javascript
-import React from 'react';
-import { routeNode } from 'react-router5';
+import element from 'virtual-element';
+import { routeNode } from 'deku-router5';
 import { UserView, UserList, NotFound } from './components';
 
-function Users(props) {
-    const { previousRoute, route } from props;
+const Users = {
+    render(props) {
+        const { previousRoute, route } from props;
 
-    switch (route.name) {
-        case 'users.list':
-            return <UserList/>;
-        case 'users.view':
-            return <UserView/>;
-        default:
-            return <NotFound/>;
-    };
-}
+        switch (route.name) {
+            case 'users.list':
+                return element(UserList);
+            case 'users.view':
+                return element(UserView);
+            default:
+                return element(NotFound);
+        };
+    }
+};
 
 export default routeNode('users')(Users);
 
@@ -66,17 +66,16 @@ export default routeNode('users')(Users);
 ### Link component
 
 ```javascript
-import React from 'react';
-import { Link } from 'react-router5';
+import element from 'virtual-element';
+import { Link } from 'deku-router5';
 
-function Menu(props) {
-    return (
-        <nav>
-            <Link routeName='home' routeOptions={{reload: true}}>Home</Link>
-
-            <Link routeName='about' routeOptions={{reload: true}}>About</Link>
-        </nav>
-    );
+const Menu = {
+    render(props) {
+        return element('nav', {}, [
+            element(Link, { routeName: 'home', routeOptions: { reload: true } }, 'Home'),
+            element(Link, { routeName: 'about', routeOptions: { reload: true } }, 'About')
+        ]);
+    }
 }
 
 export default Menu;

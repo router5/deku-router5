@@ -1,4 +1,4 @@
-import { element } from 'virtual-element';
+import element from 'virtual-element';
 
 function routeNode(nodeName) {
     return function routeNodeWrapper(RouteSegment) {

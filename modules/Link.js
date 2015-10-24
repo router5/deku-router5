@@ -1,4 +1,4 @@
-import { element } from 'virtual-element';
+import element from 'virtual-element';
 
 const propTypes = {
     router:          {source: 'router'},
@@ -28,7 +28,7 @@ const clickHandler =  (evt, component) => {
 };
 
 const render = ({ props }) => {
-    const { button, activeClass, routeName, routeParams, children } = props;
+    const { button, activeClass, routeName, routeParams, children, router } = props;
 
     const active = router.isActive(routeName, routeParams);
     const href =  router.buildUrl(routeName, routeParams);

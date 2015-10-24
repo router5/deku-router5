@@ -6,7 +6,11 @@ Object.defineProperty(exports, '__esModule', {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 var _virtualElement = require('virtual-element');
+
+var _virtualElement2 = _interopRequireDefault(_virtualElement);
 
 function routeNode(nodeName) {
     return function routeNodeWrapper(RouteSegment) {
@@ -25,7 +29,7 @@ function routeNode(nodeName) {
         };
 
         var render = function render(component) {
-            return (0, _virtualElement.element)(RouteSegment, _extends({}, component.props, component.state));
+            return (0, _virtualElement2['default'])(RouteSegment, _extends({}, component.props, component.state));
         };
 
         return { propTypes: propTypes, afterMount: afterMount, render: render };
