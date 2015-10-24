@@ -18,7 +18,7 @@ function routeNode(nodeName) {
             return element(RouteSegment, { ...component.props, ...component.state });
         };
 
-        return { propTypes, afterMount, render };
+        return { propTypes, initialState, afterMount, render };
     };
 }
 

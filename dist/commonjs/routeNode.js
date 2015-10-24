@@ -32,7 +32,7 @@ function routeNode(nodeName) {
             return (0, _virtualElement2['default'])(RouteSegment, _extends({}, component.props, component.state));
         };
 
-        return { propTypes: propTypes, afterMount: afterMount, render: render };
+        return { propTypes: propTypes, initialState: initialState, afterMount: afterMount, render: render };
     };
 }
 
