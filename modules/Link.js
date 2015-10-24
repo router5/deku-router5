@@ -1,48 +1,49 @@
 import element from 'virtual-element';
 
-const propTypes = {
-    router:          {source: 'router'},
-    route:           {source: 'route'},
-    button:          {type: 'boolean'},
-    routeName:       {type: 'string', optional: false},
-    routeParams:     {type: 'object'},
-    routeOptions:    {type: 'object'},
-    activeClass:     {type: 'string'},
-    activeStrict:    {type: 'function'},
-    onClick:         {type: 'function'}
-};
+const Link = {
+    propTypes: {
+        router:          {source: 'router'},
+        route:           {source: 'route'},
+        button:          {type: 'boolean'},
+        routeName:       {type: 'string', optional: false},
+        routeParams:     {type: 'object'},
+        routeOptions:    {type: 'object'},
+        activeClass:     {type: 'string'},
+        activeStrict:    {type: 'function'},
+        onClick:         {type: 'function'}
+    },
 
-const defaultProps = {
-    activeClass:  'active',
-    button:       false,
-    activeStrict: false,
-    routeParams:  {},
-    routeOptions: {}
-};
+    defaultProps: {
+        activeClass:  'active',
+        button:       false,
+        activeStrict: false,
+        routeParams:  {},
+        routeOptions: {}
+    },
 
-const clickHandler =  (evt, component) => {
-    evt.preventDefault()
+    render({ props }) {
+        const { button, activeClass, routeName, routeParams, routeOptions, children, router } = props;
 
-    const { routeName, routeParams, routeOptions } = component.props;
-    router.navigate(routeName, routeParams, routeOptions);
-};
+        const clickHandler = evt => {
+            evt.preventDefault()
+            router.navigate(routeName, routeParams, routeOptions);
+        };
 
-const render = ({ props }) => {
-    const { button, activeClass, routeName, routeParams, children, router } = props;
+        const active = router.isActive(routeName, routeParams);
+        const href =  router.buildUrl(routeName, routeParams);
 
-    const active = router.isActive(routeName, routeParams);
-    const href =  router.buildUrl(routeName, routeParams);
 
-    const className = (props.class ? props.class.split(' ') : [])
-        .concat(active ? [ activeClass ] : []).join(' ');
+        const className = (props.class ? props.class.split(' ') : [])
+            .concat(active ? [ activeClass ] : []).join(' ');
 
-    const onClick = props.onClick || clickHandler;
+        const onClick = props.onClick || clickHandler;
 
-    if (button) {
-        return element('button', { type: 'button', 'class': className, onClick }, children);
+        if (button) {
+            return element('button', { type: 'button', 'class': className, onClick }, children);
+        }
+
+        return element('a', { href, 'class': className, onClick }, children);
     }
-
-    return element('a', { href, 'class': className, onClick }, children)
 };
 
-export default { propTypes, defaultProps, render };
+export default Link;

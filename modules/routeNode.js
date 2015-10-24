@@ -2,23 +2,30 @@ import element from 'virtual-element';
 
 function routeNode(nodeName) {
     return function routeNodeWrapper(RouteSegment) {
-        const propTypes = {
-            router: {source: 'router'}
+        const RouteNode = {
+            propTypes: {
+                router: {source: 'router'}
+            },
+
+            afterMount({ props }, elm, setState) {
+                props.router.addNodeListener(nodeName, (toState, fromState) => {
+                    setState({ route: toState, previousRoute: fromState });
+                });
+            },
+
+            render({ props, state }) {
+                let { route, previousRoute } = state;
+
+                if (route === undefined) {
+                    route = props.router.getState();
+                    previousRoute = null;
+                }
+
+                return element(RouteSegment, { ...props, route, previousRoute });
+            }
         };
 
-        const initialState = props => ({ route: props.router.getState(), previousRoute: null });
-
-        const afterMount = (component, elm, setState) => {
-            component.props.router.addNodeListener(nodeName, (toState, fromState) => {
-                setState({ route: toState, previousRoute: fromState });
-            });
-        };
-
-        const render = (component) => {
-            return element(RouteSegment, { ...component.props, ...component.state });
-        };
-
-        return { propTypes, initialState, afterMount, render };
+        return RouteNode;
     };
 }
 

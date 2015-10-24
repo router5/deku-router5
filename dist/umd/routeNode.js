@@ -21,25 +21,35 @@
 
     function routeNode(nodeName) {
         return function routeNodeWrapper(RouteSegment) {
-            var propTypes = {
-                router: { source: 'router' }
+            var RouteNode = {
+                propTypes: {
+                    router: { source: 'router' }
+                },
+
+                afterMount: function afterMount(_ref, elm, setState) {
+                    var props = _ref.props;
+
+                    props.router.addNodeListener(nodeName, function (toState, fromState) {
+                        setState({ route: toState, previousRoute: fromState });
+                    });
+                },
+
+                render: function render(_ref2) {
+                    var props = _ref2.props;
+                    var state = _ref2.state;
+                    var route = state.route;
+                    var previousRoute = state.previousRoute;
+
+                    if (route === undefined) {
+                        route = props.router.getState();
+                        previousRoute = null;
+                    }
+
+                    return (0, _element['default'])(RouteSegment, _extends({}, props, { route: route, previousRoute: previousRoute }));
+                }
             };
 
-            var initialState = function initialState(props) {
-                return { route: props.router.getState(), previousRoute: null };
-            };
-
-            var afterMount = function afterMount(component, elm, setState) {
-                component.props.router.addNodeListener(nodeName, function (toState, fromState) {
-                    setState({ route: toState, previousRoute: fromState });
-                });
-            };
-
-            var render = function render(component) {
-                return (0, _element['default'])(RouteSegment, _extends({}, component.props, component.state));
-            };
-
-            return { propTypes: propTypes, initialState: initialState, afterMount: afterMount, render: render };
+            return RouteNode;
         };
     }
 
