@@ -1,12 +1,12 @@
 {
-  "name": "router5-deku",
-  "version": "0.1.0-alpha.2",
+  "name": "deku-router5",
+  "version": "1.0.0",
   "homepage": "http://router5.github.io",
   "authors": [
     "Thomas Roch <thomas.c.roch@gmail.com>"
   ],
-  "description": "router5 helpers for Deku",
-  "main": "dist/browser/router5-deku.js",
+  "description": "Deku helpers for integration with router5",
+  "main": "dist/browser/deku-router5.min.js",
   "moduleType": [
     "amd",
     "es6",
@@ -15,11 +15,9 @@
   ],
   "keywords": [
     "router",
-    "html5",
-    "history",
-    "tree",
-    "deku",
-    "functional"
+    "router5",
+    "react",
+    "reactjs"
   ],
   "license": "MIT",
   "ignore": [
@@ -29,6 +27,7 @@
     "npm-debug.log",
     "bower.json",
     "README.md",
-    "package.json"
+    "package.json",
+    "gulpfile.js"
   ]
 }

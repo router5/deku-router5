@@ -1,5 +1,9 @@
-import linkFactory from './link-factory'
-import segmentDecoratorFactory from './segment-decorator-factory'
-import routerPlugin from './router-plugin'
+import Link from './Link';
+import routeNode from './routeNode';
+import routerPlugin from './routerPlugin'
 
-export {routerPlugin, linkFactory, segmentDecoratorFactory}
+export default {
+    Link,
+    routeNode,
+    routerPlugin
+};

@@ -1,89 +1,88 @@
-# router5-deku
-Helpers for using router5 (HTML5 router) with Deku
+# deku-router5
 
-- See [router5.github.io](http://router5.github.io) for more info about router5
-- Example available [here](http://router5.github.io/docs/with-deku.html)
+> High-order components and components for Deku when using [router5](https://github.com/router5/router5).
 
-### Installation:
+This package replaces `router5-deku` which is deprecated.
 
-```sh
-// Bower
-bower install router5-deku --save
-// npm
-npm install router5-deku --save-dev
-```
+### Example
 
-It includes:
+Code here: [https://github.com/router5/examples/tree/master/apps/deku](https://github.com/router5/examples/tree/master/apps/deku)
+Demo here: [http://localhost:8080/docs/with-deku.html#/inbox](http://localhost:8080/docs/with-deku.html#/inbox)
 
-- A router plugin which sets and update environment data (source) `currentRoute`
-- A link factory to create a `Link` function (for hyperlinks and buttons)
-- A decorator factory to create a `SegmentDecorator` decorator (add a node listener for the specified route, and register component
-with router when active)
+### Requirements
+
+- deku >= __0.5.0__
+- router5 >= __1.0.0__
 
 
-The use of factories is to be able to access `app` and `router` objects easily:
+### RouterProvider HOC
+
+It will add your router instance in context.
 
 ```javascript
-import {Router5} from 'router5'
-import {routerPlugin, linkFactory, segmentDecoratorFactory} from 'router5-deku'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { RouterProvider } from 'react-router5';
+import App from './App';
+import router from './router';
 
-var router = new Router5()
-    .setOption('useHash', true)
-    .setOption('defaultRoute', 'inbox')
-    // Routes
-    .addNode('inbox',            '/inbox')
-    .addNode('inbox.message',    '/message/:id')
-    .addNode('compose',          '/compose')
-    .addNode('contacts',         '/contacts')
-    .start()
-
-var Link = linkFactory(router)
-
-var app = tree().use(routerPlugin(router))
-
-var SegmentDecorator = segmentDecoratorFactory(router, app)
-
-export {app, router, Link, SegmentDecorator}
+ReactDOM.render(
+    <RouterProvider router={ router }><App /></RouterProvider>,
+    document.getElementById('app')
+);
 ```
 
-### Router plugin
+### RouteNode HOC
 
-Simply use it with _app.use_: `app.use(routerPlugin(router))`
+__routeNode(nodeName, registerComponent = false)__: high-order component to wrap a route node component.
 
-### Segment decorator
+- Specify your component node name (`''` if root node)
+- If you set `registerComponent` to true, you cannot use functional stateless components as `routeNode` make uses of _refs_.
 
-In the absence of mixins, the segment decorator will mutate a component definition to enhance its `afterMount` and `beforeUnmount` functions
-(already defined functions will be preserved).
-
-`SegmentDecorator(component, routeName[, listener])`:
+__Note:__ your router needs to use `router5-listeners` plugin.
 
 ```javascript
-var RootComponent = {
-    initialState: function (props) {
-        return {
-            currentRoute: router.getState()
-        };
-    },
+import React from 'react';
+import { routeNode } from 'react-router5';
+import { UserView, UserList, NotFound } from './components';
 
-    render: function (component) {
-        var currentRoute = component.state.currentRoute;
-        return element('div', {}, currentRoute ? currentRoute.name : 'Not found');
-    }
-};
-SegmentDecorator(RootComponent, '', function (component, setState, toRoute, fromRoute) {
-    setState({currentRoute: toRoute})
-});
-```
+function Users(props) {
+    const { previousRoute, route } from props;
 
-### Link
-
-You can specify _button_ (default to false, whether it should render a hyperlink or button), _routeName_ (required), _routeParams_, _routeOptions_
-and _activeClass_.
-
-```javascript
-function render() {
-    return <Link routeName="inbox" routeOptions={reload: true}>Go to Inbox</Link>
+    switch (route.name) {
+        case 'users.list':
+            return <UserList/>;
+        case 'users.view':
+            return <UserView/>;
+        default:
+            return <NotFound/>;
+    };
 }
+
+export default routeNode('users')(Users);
+
+```
+
+### Link component
+
+```javascript
+import React from 'react';
+import { Link } from 'react-router5';
+
+function Menu(props) {
+    return (
+        <nav>
+            <Link routeName='home' routeOptions={{reload: true}}>Home</Link>
+
+            <Link routeName='about' routeOptions={{reload: true}}>About</Link>
+        </nav>
+    );
+}
+
+export default Menu;
 ```
 
 
+### Contributing
+
+Please read [contributing guidelines](https://github.com/router5/router5/blob/master/CONTRIBUTING.md) on router5 repository.
