@@ -1,23 +1,26 @@
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+    value: true
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _linkFactory = require('./link-factory');
+var _Link = require('./Link');
 
-var _linkFactory2 = _interopRequireDefault(_linkFactory);
+var _Link2 = _interopRequireDefault(_Link);
 
-var _segmentDecoratorFactory = require('./segment-decorator-factory');
+var _routeNode = require('./routeNode');
 
-var _segmentDecoratorFactory2 = _interopRequireDefault(_segmentDecoratorFactory);
+var _routeNode2 = _interopRequireDefault(_routeNode);
 
-var _routerPlugin = require('./router-plugin');
+var _routerPlugin = require('./routerPlugin');
 
 var _routerPlugin2 = _interopRequireDefault(_routerPlugin);
 
-exports.routerPlugin = _routerPlugin2['default'];
-exports.linkFactory = _linkFactory2['default'];
-exports.segmentDecoratorFactory = _segmentDecoratorFactory2['default'];
+exports['default'] = {
+    Link: _Link2['default'],
+    routeNode: _routeNode2['default'],
+    routerPlugin: _routerPlugin2['default']
+};
+module.exports = exports['default'];
