@@ -1,15 +1,8 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _virtualElement = require('virtual-element');
-
-var _virtualElement2 = _interopRequireDefault(_virtualElement);
-
 var Link = {
     propTypes: {
         router: { source: 'router' },
@@ -49,17 +42,16 @@ var Link = {
         var active = router.isActive(routeName, routeParams);
         var href = router.buildUrl(routeName, routeParams);
 
-        var className = (props['class'] ? props['class'].split(' ') : []).concat(active ? [activeClass] : []).join(' ');
+        var className = (props.class ? props.class.split(' ') : []).concat(active ? [activeClass] : []).join(' ');
 
         var onClick = props.onClick || clickHandler;
 
         if (button) {
-            return (0, _virtualElement2['default'])('button', { type: 'button', 'class': className, onClick: onClick }, children);
+            return element('button', { type: 'button', 'class': className, onClick: onClick }, children);
         }
 
-        return (0, _virtualElement2['default'])('a', { href: href, 'class': className, onClick: onClick }, children);
+        return { type: 'a', children: children, attributes: { href: href, 'class': className, onClick: onClick } };
     }
 };
 
-exports['default'] = Link;
-module.exports = exports['default'];
+exports.default = Link;

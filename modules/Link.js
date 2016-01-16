@@ -1,5 +1,3 @@
-import element from 'virtual-element';
-
 const Link = {
     propTypes: {
         router:          {source: 'router'},
@@ -25,7 +23,7 @@ const Link = {
         const { button, activeClass, routeName, routeParams, routeOptions, children, router } = props;
 
         const clickHandler = evt => {
-            evt.preventDefault()
+            evt.preventDefault();
             router.navigate(routeName, routeParams, routeOptions);
         };
 
@@ -42,7 +40,7 @@ const Link = {
             return element('button', { type: 'button', 'class': className, onClick }, children);
         }
 
-        return element('a', { href, 'class': className, onClick }, children);
+        return { type: 'a', children, attributes: { href, 'class': className, onClick } };
     }
 };
 

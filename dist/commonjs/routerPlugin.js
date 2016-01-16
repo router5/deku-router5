@@ -1,6 +1,6 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var routerPlugin = function routerPlugin(router) {
@@ -13,5 +13,4 @@ var routerPlugin = function routerPlugin(router) {
     };
 };
 
-exports['default'] = routerPlugin;
-module.exports = exports['default'];
+exports.default = routerPlugin;

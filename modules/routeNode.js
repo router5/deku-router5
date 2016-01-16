@@ -1,5 +1,3 @@
-import element from 'virtual-element';
-
 function routeNode(nodeName) {
     return function routeNodeWrapper(RouteSegment) {
         const RouteNode = {
@@ -21,7 +19,7 @@ function routeNode(nodeName) {
                     previousRoute = null;
                 }
 
-                return element(RouteSegment, { ...props, route, previousRoute });
+                return { type: RouteSegment, children: [], attributes: { ...props, route, previousRoute } };
             }
         };
 
