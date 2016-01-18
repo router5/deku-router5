@@ -48,7 +48,7 @@
     "yargs": "^3.27.0"
   },
   "peerDependencies": {
-    "router5": ">=1.0.0",
+    "router5": "2.0.0-rc.1",
     "deku": "~0.5.0 || ^1.0.0"
   },
   "dependencies": {
