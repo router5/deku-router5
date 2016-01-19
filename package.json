@@ -1,6 +1,6 @@
 {
   "name": "deku-router5",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "router5 helpers for Deku",
   "main": "dist/commonjs/index.js",
   "scripts": {
@@ -48,7 +48,7 @@
     "yargs": "^3.27.0"
   },
   "peerDependencies": {
-    "router5": "2.0.0-rc.1",
+    "router5": "^2.0.0",
     "deku": "~0.5.0 || ^1.0.0"
   },
   "dependencies": {

@@ -12,7 +12,7 @@ Demo here: [http://localhost:8080/docs/with-deku.html#/inbox](http://localhost:8
 ### Requirements
 
 - deku >= __0.5.0__
-- router5 >= __1.0.0__
+- router5 >= __2.0.0__
 
 
 ### routerPlugin
