@@ -1,3 +1,13 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/router5/deku-router5/compare/v2.0.0...v3.0.0) (2016-06-03)
+
+
+### Bug Fixes
+
+* fix module exports ([575b2ec](https://github.com/router5/deku-router5/commit/575b2ec))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/router5/deku-router5/compare/v1.0.0...v2.0.0) (2016-01-19)
 

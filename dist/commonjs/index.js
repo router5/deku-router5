@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.routerPlugin = exports.routeNode = exports.Link = undefined;
 
 var _Link = require('./Link');
 
@@ -18,8 +19,6 @@ var _routerPlugin2 = _interopRequireDefault(_routerPlugin);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = {
-    Link: _Link2.default,
-    routeNode: _routeNode2.default,
-    routerPlugin: _routerPlugin2.default
-};
+exports.Link = _Link2.default;
+exports.routeNode = _routeNode2.default;
+exports.routerPlugin = _routerPlugin2.default;
