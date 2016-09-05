@@ -1,3 +1,9 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/router5/deku-router5/compare/v3.0.0...v4.0.0) (2016-09-05)
+
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/router5/deku-router5/compare/v2.0.0...v3.0.0) (2016-06-03)
 

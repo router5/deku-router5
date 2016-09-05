@@ -34,6 +34,7 @@ var Link = {
         var children = props.children;
         var router = props.router;
 
+
         var clickHandler = function clickHandler(evt) {
             evt.preventDefault();
             router.navigate(routeName, routeParams, routeOptions);

@@ -26,6 +26,7 @@ function routeNode(nodeName) {
                 var route = state.route;
                 var previousRoute = state.previousRoute;
 
+
                 if (route === undefined) {
                     route = props.router.getState();
                     previousRoute = null;
